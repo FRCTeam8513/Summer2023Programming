@@ -4,7 +4,10 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,6 +24,10 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private Timer robotTimer = new Timer();
   public int i = 0;
+
+  public CANSparkmax motor = new CANSparkMax(deviceID:20, MotorType.kBrushless);
+  
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
