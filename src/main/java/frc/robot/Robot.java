@@ -5,8 +5,11 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -24,11 +27,16 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private Timer robotTimer = new Timer();
-  public int i = 0;
+  
+  private RelativeEncoder m_encoder;
 
   public CANSparkMax motor = new CANSparkMax(20, MotorType.kBrushless);
   
+  public PIDController pidController = new PIDController(0.2, 0.0, 0.01);
 
+  public double actualOutput = 0;
+
+  public double i = 0.08;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -39,6 +47,9 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    motor.setIdleMode(IdleMode.kBrake);
+    m_encoder = motor.getEncoder();
+    SmartDashboard.putNumber("Setpoint", 0);
   }
 
   /**
@@ -52,6 +63,9 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     double time = robotTimer.getFPGATimestamp();
     SmartDashboard.putNumber("Time", time);
+    SmartDashboard.putNumber("Encoder Position", m_encoder.getPosition());
+
+    SmartDashboard.putNumber("Encoder Velocity", m_encoder.getVelocity());
   }
 
   /**
@@ -88,12 +102,26 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    motor.set(.05);
+    
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    double setpoint = SmartDashboard.getNumber("Setpoint", 0);
+    double motorPower = pidController.calculate(m_encoder.getPosition(), setpoint);
+    //intercept motor power and prevent it from changing too fast (staritng, stoping, accelerating to fast)
+
+    if(motorPower > actualOutput){
+      actualOutput = actualOutput + i;
+    }
+    if(motorPower < actualOutput){
+      actualOutput = actualOutput - i;
+    }
+
+    SmartDashboard.putNumber("ActualOutputt", actualOutput);
+    motor.set(actualOutput);
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
