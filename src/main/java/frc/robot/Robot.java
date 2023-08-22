@@ -49,7 +49,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     double time = robotTimer.getFPGATimestamp();
-    System.out.println(time);
+    SmartDashboard.putNumber("Time", time);
   }
 
   /**
