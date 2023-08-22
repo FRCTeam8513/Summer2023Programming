@@ -19,7 +19,8 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
+  private Timer robotTimer = new Timer();
+  public int i = 0;
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -39,7 +40,10 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    double time = robotTimer.getFPGATimestamp();
+    System.out.println(time);
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
