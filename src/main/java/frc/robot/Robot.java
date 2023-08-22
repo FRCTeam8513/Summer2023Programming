@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -25,8 +26,9 @@ public class Robot extends TimedRobot {
   private Timer robotTimer = new Timer();
   public int i = 0;
 
-  public CANSparkmax motor = new CANSparkMax(deviceID:20, MotorType.kBrushless);
+  public CANSparkMax motor = new CANSparkMax(20, MotorType.kBrushless);
   
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
