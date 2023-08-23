@@ -32,6 +32,19 @@ public class StateMachine {
         if(state == 2){
 
         }
+
+
+        if(state == 4){
+            if(isButton4Pressed){
+                state = 1;
+            }
+            if(doesLowerSensorSeeBall){
+                state = 1;
+            }
+            if(isButton5Pressed){
+                state = 2;
+            }
+        }
     }
 
 }
