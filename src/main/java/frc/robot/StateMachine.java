@@ -43,6 +43,28 @@ public class StateMachine {
             isUpperIntakeOn = true;
             isShooterOn = false;
         } 
+        if(state == 5){
+            if(isButton5Pressed = false){
+                state = 1;
+            }
+
+            isLowerIntakeOn = true;
+            isUpperIntakeOn = true;
+            isShooterOn = false;
+
+
+
+        if(state == 4){
+            if(isButton4Pressed){
+                state = 1;
+            }
+            if(doesLowerSensorSeeBall){
+                state = 1;
+            }
+            if(isButton5Pressed){
+                state = 2;
+            }
+        }
     }
 
 }
