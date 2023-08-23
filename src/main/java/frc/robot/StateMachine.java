@@ -32,6 +32,16 @@ public class StateMachine {
         if(state == 2){
 
         }
+        if(state == 5){
+            if(isButton5Pressed = false){
+                state = 1;
+            }
+
+            isLowerIntakeOn = true;
+            isUpperIntakeOn = true;
+            isShooterOn = false;
+
+        }
     }
 
 }
