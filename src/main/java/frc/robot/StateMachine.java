@@ -33,6 +33,9 @@ public class StateMachine {
             if(isButton5Pressed != true){
                 state = 1;
             }
+            isLowerIntakeOn = true;
+            isUpperIntakeOn = true;
+            isShooterOn = true;
         }
         if(state == 3){
             if(doesUpperSensorSeeBall){
@@ -46,14 +49,14 @@ public class StateMachine {
             isShooterOn = false;
         } 
         if(state == 5){
-            if(isButton5Pressed = false){
+            if(isButton5Pressed == false){
                 state = 1;
             }
 
             isLowerIntakeOn = true;
             isUpperIntakeOn = true;
             isShooterOn = false;
-
+        }
 
 
         if(state == 4){
@@ -63,10 +66,12 @@ public class StateMachine {
             if(doesLowerSensorSeeBall){
                 state = 1;
             }
-            if(isButton5Pressed){
+            if(isButton4Pressed){
                 state = 2;
             }
+            isLowerIntakeOn = true;
+            isUpperIntakeOn = true;
+            isShooterOn = false;
         }
     }
-
 }
