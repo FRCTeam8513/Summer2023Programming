@@ -32,6 +32,17 @@ public class StateMachine {
         if(state == 2){
 
         }
+        if(state == 3){
+            if(doesUpperSensorSeeBall){
+                state = 4;
+            } 
+            if(isButton4Pressed){
+                state = 1;
+            }
+            isLowerIntakeOn = true;
+            isUpperIntakeOn = true;
+            isShooterOn = false;
+        } 
     }
 
 }
