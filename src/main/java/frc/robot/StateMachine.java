@@ -30,7 +30,9 @@ public class StateMachine {
             isShooterOn = false;
         }
         if(state == 2){
-
+            if(isButton5Pressed != true){
+                state = 1;
+            }
         }
     }
 
